@@ -1,6 +1,11 @@
 package pgkn
 
 import org.scalajs.dom
+import com.raquo.laminar.api.L.{renderOnDomContentLoaded}
 
 @main
-def App = dom.document.querySelector("#app").innerHTML = "Yay"
+def run: Unit =
+  renderOnDomContentLoaded(
+    dom.document.getElementById("app"),
+    App.element()
+  )

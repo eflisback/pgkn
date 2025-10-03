@@ -1,6 +1,7 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 
-lazy val pgkn = project.in(file("."))
+lazy val pgkn = project
+  .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
   .settings(
     scalaVersion := "3.7.3",
@@ -17,12 +18,14 @@ lazy val pgkn = project.in(file("."))
      */
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.ESModule)
-        .withModuleSplitStyle(
-          ModuleSplitStyle.SmallModulesFor(List("pgkn")))
+        .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("pgkn")))
     },
 
     /* Depend on the scalajs-dom library.
      * It provides static types for the browser DOM APIs.
      */
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.1",
+
+    // Depend on Laminar
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0"
   )
