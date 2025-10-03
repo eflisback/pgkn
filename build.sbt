@@ -27,5 +27,11 @@ lazy val pgkn = project
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.1",
 
     // Depend on Laminar
-    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0"
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0",
+
+    // Depend on Waypoint for routing
+    libraryDependencies += "com.raquo" %%% "waypoint" % "9.0.0",
+
+    // Depend on uPickle for serialization
+    libraryDependencies += "com.lihaoyi" %%% "upickle" % "4.0.2"
   )
