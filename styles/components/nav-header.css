@@ -1,3 +1,22 @@
 .nav-header {
-    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 30px;
+}
+
+.nav-header section,
+.nav-header nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.nav-header-links {
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.nav-header-github {
+    justify-content: right;
 }

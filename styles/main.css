@@ -1,4 +1,21 @@
 @import './components/index.css';
 @import './pages/index.css';
+@import './typography.css';
 
-body {}
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    margin: 0;
+    background-color: #0D1117;
+    color: #E6EDF3;
+}
+
+.page-content {
+    padding: 10px 30px;
+}

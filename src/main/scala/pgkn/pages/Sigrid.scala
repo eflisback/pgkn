@@ -8,5 +8,8 @@ object Sigrid:
   def element(router: Router[pgkn.Page]): HtmlElement =
     mainTag(
       NavHeader.element(router),
-      div("This is sigrid")
+      div(
+        className := "page-content",
+        p("This is sigrid")
+      )
     )
