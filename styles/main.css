@@ -5,7 +5,7 @@
 
 * {
     box-sizing: border-box;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 html {
@@ -16,4 +16,8 @@ body {
     margin: 0;
     background-color: var(--color-bg);
     color: var(--color-text);
+}
+
+input {
+    outline: none;
 }
