@@ -78,3 +78,23 @@ npm run build
 ```
 
 The built web application can now be found inside the `dist` subdirectory.
+
+## Documentation
+
+### Theming (Dark/Light Mode)
+
+The application supports light and dark themes with automatic persistence and system preference detection.
+
+**ThemeService** (`src/main/scala/pgkn/services/ThemeService.scala`):
+- Manages theme state using Laminar's reactive `Var`/`Signal` pattern
+- Exposes a `Signal[Theme]` for components to reactively observe theme changes
+- Provides `toggle()` method to switch between themes
+- Persists theme preference to localStorage
+- Detects system color scheme preference on first visit
+
+**CSS Implementation**:
+- Theme-specific CSS variables are defined in `styles/themes/`
+  - `light.css`: Uses `:root` selector for default light theme (loads before JS)
+  - `dark.css`: Uses `[data-theme="dark"]` attribute selector
+- ThemeService sets `data-theme` attribute on `<html>` element to apply dark theme
+- Components use CSS variables (e.g., `var(--color-bg)`) that automatically update when theme changes

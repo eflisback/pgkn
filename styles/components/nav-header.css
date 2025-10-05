@@ -3,8 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 10px 30px;
-    background-color: #232323;
-    border-bottom: 1px solid #2e2e2e;
+    background-color: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
     gap: 10px;
 }
 
@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .nav-header-links {
@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: end;
     flex-direction: row;
-    gap: 10px;
+    gap: 20px;
 }
 
 .nav-header-github {

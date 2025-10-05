@@ -1,9 +1,11 @@
+@import './themes/index.css';
 @import './components/index.css';
 @import './pages/index.css';
 @import './typography.css';
 
 * {
     box-sizing: border-box;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 html {
@@ -12,8 +14,8 @@ html {
 
 body {
     margin: 0;
-    background-color: #1c1c1c;
-    color: #E6EDF3;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 .page-content {

@@ -2,6 +2,7 @@ package pgkn.components
 
 import com.raquo.waypoint.Router
 import com.raquo.laminar.api.L.*
+import pgkn.services.{ThemeService, Theme}
 
 object NavHeader:
   def apply(router: Router[pgkn.Page]): HtmlElement =
@@ -22,7 +23,13 @@ object NavHeader:
         ),
         className := "nav-header-theme-switch",
         button(
-          SvgIcon("/icons/light.svg")
-        ) // Put icon here
+          onClick --> (_ => ThemeService.toggle()),
+          child <-- ThemeService.theme.map(theme =>
+            val iconPath = theme match
+              case Theme.Light => "/icons/dark.svg"
+              case Theme.Dark  => "/icons/light.svg"
+            SvgIcon(iconPath)
+          )
+        )
       )
     )
