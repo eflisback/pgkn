@@ -1,18 +1,24 @@
 .nav-header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     padding: 10px 30px;
+    background-color: #232323;
+    border-bottom: 1px solid #2e2e2e;
+    gap: 10px;
 }
 
-.nav-header section,
-.nav-header nav {
-    flex: 1;
+.nav-header section {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    gap: 10px;
 }
 
 .nav-header-links {
-    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: end;
     flex-direction: row;
     gap: 10px;
 }

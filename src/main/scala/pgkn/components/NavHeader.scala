@@ -10,15 +10,17 @@ object NavHeader:
       sectionTag(
         a(
           router.navigateTo(pgkn.HomePage),
-          h1("PGK'N")
+          h2("PGK'N")
         )
       ),
-      navTag(
-        className := "nav-header-links",
-        a(router.navigateTo(pgkn.SigridPage), "Sigrid")
-      ),
       sectionTag(
-        className := "nav-header-github",
-        a("GitHub")
+        navTag(
+          className := "nav-header-links",
+          a(router.navigateTo(pgkn.KaptenAllocPage), "Kapten Alloc"),
+          a(router.navigateTo(pgkn.SigridPage), "Sigrid"),
+          a(router.navigateTo(pgkn.SigridPage), "Beppe")
+        ),
+        className := "nav-header-theme-switch",
+        button("X") // Put icon here
       )
     )
