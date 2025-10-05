@@ -5,5 +5,5 @@ import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 
 object KaptenAlloc:
-  def element(router: Router[pgkn.Page]): HtmlElement =
+  def apply(router: Router[pgkn.Page]): HtmlElement =
     div("")

@@ -4,7 +4,7 @@ import com.raquo.waypoint.Router
 import com.raquo.laminar.api.L.*
 
 object NavHeader:
-  def element(router: Router[pgkn.Page]): Element =
+  def apply(router: Router[pgkn.Page]): HtmlElement =
     headerTag(
       className := "nav-header",
       sectionTag(
@@ -21,6 +21,8 @@ object NavHeader:
           a(router.navigateTo(pgkn.SigridPage), "Beppe")
         ),
         className := "nav-header-theme-switch",
-        button("X") // Put icon here
+        button(
+          SvgIcon("/icons/light.svg")
+        ) // Put icon here
       )
     )

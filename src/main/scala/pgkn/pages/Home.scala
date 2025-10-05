@@ -5,9 +5,9 @@ import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 
 object Home:
-  def element(router: Router[pgkn.Page]): HtmlElement =
+  def apply(router: Router[pgkn.Page]): HtmlElement =
     mainTag(
-      NavHeader.element(router),
+      NavHeader(router),
       div(
         className := "page-content",
         p("This is home page")

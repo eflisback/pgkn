@@ -27,6 +27,6 @@ object Router:
 
   val splitter =
     SplitRender[Page, HtmlElement](RouterInstance.currentPageSignal)
-      .collectStatic(HomePage)(Home.element(RouterInstance))
-      .collectStatic(KaptenAllocPage)(KaptenAlloc.element(RouterInstance))
-      .collectStatic(SigridPage)(Sigrid.element(RouterInstance))
+      .collectStatic(HomePage)(Home(RouterInstance))
+      .collectStatic(KaptenAllocPage)(KaptenAlloc(RouterInstance))
+      .collectStatic(SigridPage)(Sigrid(RouterInstance))
