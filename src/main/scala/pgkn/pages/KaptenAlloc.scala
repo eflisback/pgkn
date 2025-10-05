@@ -3,6 +3,7 @@ package pgkn.pages
 import com.raquo.laminar.api.L.*
 import com.raquo.waypoint.*
 import pgkn.components.NavHeader
+import pgkn.components.SvgIcon
 
 object KaptenAlloc:
   def apply(router: Router[pgkn.Page]): HtmlElement =
@@ -12,10 +13,28 @@ object KaptenAlloc:
       div(
         className := "kapten-alloc-page-content",
         div(
-          className := "kapten-alloc-search",
-          input(
-            typ := "text",
-            placeholder := "Search..."
+          className := "kapten-alloc-subheader",
+          sectionTag(
+            input(
+              typ := "text",
+              placeholder := "Sök..."
+            )
+          ),
+          sectionTag(
+            a(
+              span("TimeEdit"),
+              SvgIcon("/icons/externalLink.svg")
+            ),
+            a(
+              span("Karta"),
+              SvgIcon("/icons/externalLink.svg")
+            )
+          ),
+          sectionTag(
+            button(
+              span("Ladda ner"),
+              SvgIcon("/icons/download.svg")
+            )
           )
         ),
         div(
@@ -24,132 +43,156 @@ object KaptenAlloc:
             className := "kapten-alloc-table",
             thead(
               tr(
-                th("Name"),
-                th("Email"),
-                th("Group"),
-                th("Status")
+                th("Typ"),
+                th("Datum"),
+                th("Vecka"),
+                th("Dag"),
+                th("Tid"),
+                th("Grupp"),
+                th("Rum"),
+                th("Vem?")
               )
             ),
             tbody(
               tr(
-                td("Alice Anderson"),
-                td("alice@example.com"),
-                td("Group A"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.01"),
+                td("Elg"),
+                td("SAR")
               ),
               tr(
-                td("Bob Builder"),
-                td("bob@example.com"),
-                td("Group B"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.02"),
+                td("Hacke"),
+                td("SAJ")
               ),
               tr(
-                td("Charlie Chen"),
-                td("charlie@example.com"),
-                td("Group A"),
-                td("Pending")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.03"),
+                td("Panter"),
+                td("ALW")
               ),
               tr(
-                td("Diana Davis"),
-                td("diana@example.com"),
-                td("Group C"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.04"),
+                td("Ravel"),
+                td("JUG")
               ),
               tr(
-                td("Eve Evans"),
-                td("eve@example.com"),
-                td("Group B"),
-                td("Inactive")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.09"),
+                td("Falk"),
+                td("ELÅ")
               ),
               tr(
-                td("Alice Anderson"),
-                td("alice@example.com"),
-                td("Group A"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.10"),
+                td("Val"),
+                td("NAK")
               ),
               tr(
-                td("Bob Builder"),
-                td("bob@example.com"),
-                td("Group B"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.11"),
+                td("Varg"),
+                td("WIS")
               ),
               tr(
-                td("Charlie Chen"),
-                td("charlie@example.com"),
-                td("Group A"),
-                td("Pending")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.12"),
+                td("Alfa"),
+                td("MAU")
               ),
               tr(
-                td("Diana Davis"),
-                td("diana@example.com"),
-                td("Group C"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.13"),
+                td("Beta"),
+                td("MOJ")
               ),
               tr(
-                td("Eve Evans"),
-                td("eve@example.com"),
-                td("Group B"),
-                td("Inactive")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("D1.14"),
+                td("Gamma"),
+                td("AXF")
               ),
               tr(
-                td("Alice Anderson"),
-                td("alice@example.com"),
-                td("Group A"),
-                td("Active")
+                td("Resurstid"),
+                td("2025-09-03"),
+                td("v36"),
+                td("ons"),
+                td("15:15"),
+                td("XA1"),
+                td("Ambulans"),
+                td("MEW")
               ),
               tr(
-                td("Bob Builder"),
-                td("bob@example.com"),
-                td("Group B"),
-                td("Active")
+                td("DodLabb"),
+                td("2025-09-04"),
+                td("v36"),
+                td("tor"),
+                td("10:15"),
+                td("C1.01"),
+                td("Alfa"),
+                td("JOE")
               ),
               tr(
-                td("Charlie Chen"),
-                td("charlie@example.com"),
-                td("Group A"),
-                td("Pending")
+                td("DodLabb"),
+                td("2025-09-04"),
+                td("v36"),
+                td("tor"),
+                td("10:15"),
+                td("C1.02"),
+                td("Beta"),
+                td("APR")
               ),
               tr(
-                td("Diana Davis"),
-                td("diana@example.com"),
-                td("Group C"),
-                td("Active")
-              ),
-              tr(
-                td("Eve Evans"),
-                td("eve@example.com"),
-                td("Group B"),
-                td("Inactive")
-              ),
-              tr(
-                td("Alice Anderson"),
-                td("alice@example.com"),
-                td("Group A"),
-                td("Active")
-              ),
-              tr(
-                td("Bob Builder"),
-                td("bob@example.com"),
-                td("Group B"),
-                td("Active")
-              ),
-              tr(
-                td("Charlie Chen"),
-                td("charlie@example.com"),
-                td("Group A"),
-                td("Pending")
-              ),
-              tr(
-                td("Diana Davis"),
-                td("diana@example.com"),
-                td("Group C"),
-                td("Active")
-              ),
-              tr(
-                td("Eve Evans"),
-                td("eve@example.com"),
-                td("Group B"),
-                td("Inactive")
+                td("DodLabb"),
+                td("2025-09-04"),
+                td("v36"),
+                td("tor"),
+                td("10:15"),
+                td("C1.03"),
+                td("Gamma"),
+                td("JON")
               )
             )
           )

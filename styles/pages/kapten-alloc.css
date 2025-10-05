@@ -10,20 +10,62 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 30px;
+    padding: 1rem 2rem;
 }
 
-.kapten-alloc-search {
-    margin-bottom: 16px;
+.kapten-alloc-subheader {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
 }
 
-.kapten-alloc-search input {
-    width: 100%;
-    max-width: 400px;
-    padding: 8px 12px;
+.kapten-alloc-subheader section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+
+.kapten-alloc-subheader section:first-child {
+    justify-content: flex-start;
+}
+
+.kapten-alloc-subheader section:last-child {
+    justify-content: flex-end;
+}
+
+.kapten-alloc-subheader input {
+    max-width: 25vw;
+    padding: 0.75rem 1.5rem;
     border: 1px solid var(--color-border);
     border-radius: 4px;
     background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.kapten-alloc-subheader a {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.kapten-alloc-subheader a:hover span {
+    color: var(--color-text);
+}
+
+.kapten-alloc-subheader button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-bg-secondary);
     color: var(--color-text);
 }
 
@@ -48,15 +90,25 @@
 }
 
 .kapten-alloc-table th {
-    padding: 12px 16px;
+    padding: 0.75rem 0.25rem;
     text-align: left;
     font-weight: 600;
     border-bottom: 1px solid var(--color-border);
 }
 
 .kapten-alloc-table td {
-    padding: 12px 16px;
+    padding: 0.75rem 0.25rem;
     border-bottom: 1px solid var(--color-border);
+}
+
+.kapten-alloc-table th:first-child,
+.kapten-alloc-table td:first-child {
+    padding-left: 1.5rem;
+}
+
+.kapten-alloc-table th:last-child,
+.kapten-alloc-table td:last-child {
+    padding-right: 1.5rem;
 }
 
 .kapten-alloc-controls {
@@ -64,7 +116,7 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 16px 24px;
+    padding: 1rem 2rem;
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: 8px;

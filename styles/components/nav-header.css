@@ -2,17 +2,17 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 10px 30px;
+    padding: 1rem 2rem;
     background-color: var(--color-bg-secondary);
     border-bottom: 1px solid var(--color-border);
-    gap: 10px;
+    gap: 1.5rem;
 }
 
 .nav-header section {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 20px;
+    gap: 1.5rem;
 }
 
 .nav-header-links {
@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: end;
     flex-direction: row;
-    gap: 20px;
+    gap: 1.5rem;
 }
 
 .nav-header-link-selected {

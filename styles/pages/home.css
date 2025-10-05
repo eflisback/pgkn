@@ -10,15 +10,16 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding: 10px 30px;
+    padding: 1rem 2rem;
     text-align: center;
 }
 
 @keyframes float-red {
+
     0%,
     100% {
         top: 60%;
