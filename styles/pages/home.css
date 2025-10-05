@@ -1,0 +1,102 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.home-page-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 30px;
+    text-align: center;
+}
+
+@keyframes float-red {
+
+    0%,
+    100% {
+        top: 60%;
+        left: 45%;
+    }
+
+    50% {
+        top: 55%;
+        left: 40%;
+    }
+}
+
+@keyframes float-blue {
+
+    0%,
+    100% {
+        top: 40%;
+        left: 60%;
+    }
+
+    50% {
+        top: 45%;
+        left: 65%;
+    }
+}
+
+.home-page-content::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(80px);
+    top: 60%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    animation: float-red 25s ease-in-out infinite;
+}
+
+.home-page-content::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(80px);
+    top: 40%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    animation: float-blue 30s ease-in-out infinite;
+}
+
+/* Light theme: more intense gradients */
+:root .home-page-content::before {
+    background: radial-gradient(circle, rgba(220, 50, 47, 0.7) 0%, transparent 70%);
+}
+
+:root .home-page-content::after {
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.6) 0%, transparent 70%);
+}
+
+/* Dark theme: softer gradients */
+[data-theme="dark"] .home-page-content::before {
+    background: radial-gradient(circle, rgba(220, 50, 47, 0.4) 0%, transparent 70%);
+}
+
+[data-theme="dark"] .home-page-content::after {
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.3) 0%, transparent 70%);
+}
+
+.home-page-content h1 {
+    color: var(--color-text-accent);
+}
+
+.home-page-content span {
+    font-size: 1.8rem;
+    color: var(--color-text-secondary);
+}

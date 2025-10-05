@@ -7,9 +7,11 @@ import pgkn.components.NavHeader
 object Home:
   def apply(router: Router[pgkn.Page]): HtmlElement =
     mainTag(
+      className := "home-page",
       NavHeader(router),
       div(
-        className := "page-content",
-        p("This is home page")
+        className := "home-page-content",
+        h1("Koda, koda, koda!"),
+        span("- Björn Regnell")
       )
     )

@@ -1,8 +1,10 @@
 [data-theme="dark"] {
   --color-bg: #1c1c1c;
   --color-bg-secondary: #232323;
+
   --color-text: #ffffff;
-  --color-primary: #66b3ff;
-  --color-secondary: #999999;
+  --color-text-secondary: #cccccc;
+  --color-text-accent: #ffffff;
+
   --color-border: #333333;
 }

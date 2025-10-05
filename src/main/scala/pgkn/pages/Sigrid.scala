@@ -9,7 +9,6 @@ object Sigrid:
     mainTag(
       NavHeader(router),
       div(
-        className := "page-content",
         p("This is sigrid")
       )
     )

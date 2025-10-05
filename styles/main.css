@@ -17,7 +17,3 @@ body {
     background-color: var(--color-bg);
     color: var(--color-text);
 }
-
-.page-content {
-    padding: 10px 30px;
-}
