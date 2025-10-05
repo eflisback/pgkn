@@ -19,7 +19,6 @@
 }
 
 @keyframes float-red {
-
     0%,
     100% {
         top: 60%;
@@ -97,6 +96,6 @@
 }
 
 .home-page-content span {
-    font-size: 1.8rem;
+    font-size: 1.125rem;
     color: var(--color-text-secondary);
 }

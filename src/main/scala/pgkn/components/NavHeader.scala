@@ -5,6 +5,12 @@ import com.raquo.laminar.api.L.*
 import pgkn.services.{ThemeService, Theme}
 
 object NavHeader:
+  private val navLinks = List(
+    (pgkn.KaptenAllocPage, "Kapten Alloc"),
+    (pgkn.SigridPage, "Sigrid"),
+    (pgkn.SigridPage, "Beppe")
+  )
+
   def apply(router: Router[pgkn.Page]): HtmlElement =
     headerTag(
       className := "nav-header",
@@ -17,9 +23,17 @@ object NavHeader:
       sectionTag(
         navTag(
           className := "nav-header-links",
-          a(router.navigateTo(pgkn.KaptenAllocPage), "Kapten Alloc"),
-          a(router.navigateTo(pgkn.SigridPage), "Sigrid"),
-          a(router.navigateTo(pgkn.SigridPage), "Beppe")
+          navLinks.map((page, label) =>
+            a(
+              router.navigateTo(page),
+              className.toggle(
+                "nav-header-link-selected"
+              ) <-- router.currentPageSignal.map(
+                _ == page
+              ),
+              label
+            )
+          )
         ),
         className := "nav-header-theme-switch",
         button(
