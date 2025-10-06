@@ -7,10 +7,10 @@ import pgkn.pages.{Home, Sigrid, NotFound}
 import pgkn.pages.KaptenAlloc
 
 sealed abstract class Page(val title: String) derives ReadWriter
-case object HomePage extends Page("Home")
-case object KaptenAllocPage extends Page("Kapten Alloc")
-case object SigridPage extends Page("Sigrid")
-case class NotFoundPage(path: String) extends Page("404 - Not Found")
+case object HomePage extends Page("PEGEKÅN")
+case object KaptenAllocPage extends Page("PGKN - Kapten Alloc")
+case object SigridPage extends Page("PGKN - Sigrid")
+case class NotFoundPage(path: String) extends Page("PGKN - 404")
 
 object Router:
   val homeRoute = Route.static(HomePage, root / endOfSegments)

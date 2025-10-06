@@ -9,6 +9,6 @@ object Sigrid:
     mainTag(
       NavHeader(router),
       div(
-        p("This is sigrid")
+        p("Sigrid: Coming soon")
       )
     )
