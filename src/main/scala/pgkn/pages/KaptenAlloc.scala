@@ -167,6 +167,9 @@ object KaptenAlloc:
               typ := "text",
               placeholder := "Sök...",
               onInput.mapToValue --> searchQuery
+            ),
+            p(
+              child.text <-- filteredEntries.map(entries => s"${entries.length}")
             )
           ),
           sectionTag(
