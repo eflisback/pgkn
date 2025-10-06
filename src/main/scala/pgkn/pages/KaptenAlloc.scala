@@ -13,7 +13,62 @@ import scala.scalajs.js
 object KaptenAlloc:
   KaptenAllocDataService.fetchData()
 
+  private case class FormattedEntry(
+      entryType: String,
+      dateStr: String,
+      weekNum: String,
+      dayStr: String,
+      timeStr: String,
+      group: String,
+      room: String,
+      supervisor: String
+  )
+
+  private def formatEntry(entry: KaptenAllocEntry): FormattedEntry =
+    val date = new js.Date(entry.time.toDouble)
+    val dateStr =
+      s"${(date.getMonth() + 1).toInt.pad()}-${date.getDate().toInt.pad()}"
+    val timeStr =
+      s"${date.getHours().toInt.pad()}:${date.getMinutes().toInt.pad()}"
+    val weekNum = s"v${DateUtils.getWeekNumber(entry.time)}"
+    val dayStr = DateUtils.getSwedishDayName(entry.time)
+
+    FormattedEntry(
+      entry.entryType,
+      dateStr,
+      weekNum,
+      dayStr,
+      timeStr,
+      entry.group,
+      entry.room,
+      entry.supervisor
+    )
+
   def apply(router: Router[pgkn.Page]): HtmlElement =
+    val searchQuery = Var("")
+
+    val formattedEntries =
+      KaptenAllocDataService.entries.map(_.map(formatEntry))
+
+    val filteredEntries =
+      formattedEntries
+        .combineWith(searchQuery.signal)
+        .map((entries, query) =>
+          if query.trim.isEmpty then entries
+          else
+            val lowerQuery = query.toLowerCase
+            entries.filter(entry =>
+              entry.entryType.toLowerCase.contains(lowerQuery) ||
+                entry.dateStr.contains(lowerQuery) ||
+                entry.weekNum.toLowerCase.contains(lowerQuery) ||
+                entry.dayStr.toLowerCase.contains(lowerQuery) ||
+                entry.timeStr.contains(lowerQuery) ||
+                entry.group.toLowerCase.contains(lowerQuery) ||
+                entry.room.toLowerCase.contains(lowerQuery) ||
+                entry.supervisor.toLowerCase.contains(lowerQuery)
+            )
+        )
+
     mainTag(
       className := "kapten-alloc-page",
       NavHeader(router),
@@ -24,7 +79,8 @@ object KaptenAlloc:
           sectionTag(
             input(
               typ := "text",
-              placeholder := "Sök..."
+              placeholder := "Sök...",
+              onInput.mapToValue --> searchQuery
             )
           ),
           sectionTag(
@@ -65,26 +121,20 @@ object KaptenAlloc:
               )
             ),
             tbody(
-              children <-- KaptenAllocDataService.entries.map(_.map(entry =>
-                val date = new js.Date(entry.time.toDouble)
-                val dateStr =
-                  s"${(date.getMonth() + 1).toInt.pad()}-${date.getDate().toInt.pad()}"
-                val timeStr =
-                  s"${date.getHours().toInt.pad()}:${date.getMinutes().toInt.pad()}"
-                val weekNum = s"v${DateUtils.getWeekNumber(entry.time)}"
-                val dayStr = DateUtils.getSwedishDayName(entry.time)
-
-                tr(
-                  td(entry.entryType),
-                  td(dateStr),
-                  td(weekNum),
-                  td(dayStr),
-                  td(timeStr),
-                  td(entry.group),
-                  td(entry.room),
-                  td(entry.supervisor)
+              children <-- filteredEntries.map(
+                _.map(entry =>
+                  tr(
+                    td(entry.entryType),
+                    td(entry.dateStr),
+                    td(entry.weekNum),
+                    td(entry.dayStr),
+                    td(entry.timeStr),
+                    td(entry.group),
+                    td(entry.room),
+                    td(entry.supervisor)
+                  )
                 )
-              ))
+              )
             )
           )
         )
