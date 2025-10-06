@@ -3,13 +3,14 @@ package pgkn
 import com.raquo.laminar.api.L.*
 import com.raquo.waypoint.*
 import upickle.default.{ReadWriter, macroRW}
-import pgkn.pages.{Home, Sigrid}
+import pgkn.pages.{Home, Sigrid, NotFound}
 import pgkn.pages.KaptenAlloc
 
 sealed abstract class Page(val title: String) derives ReadWriter
 case object HomePage extends Page("Home")
 case object KaptenAllocPage extends Page("Kapten Alloc")
 case object SigridPage extends Page("Sigrid")
+case class NotFoundPage(path: String) extends Page("404 - Not Found")
 
 object Router:
   val homeRoute = Route.static(HomePage, root / endOfSegments)
@@ -22,7 +23,8 @@ object Router:
         routes = List(homeRoute, kaptenAllocRoute, sigridRoute),
         getPageTitle = _.title,
         serializePage = page => upickle.default.write(page),
-        deserializePage = pageStr => upickle.default.read[Page](pageStr)
+        deserializePage = pageStr => upickle.default.read[Page](pageStr),
+        routeFallback = path => NotFoundPage(path)
       )
 
   val splitter =
@@ -30,3 +32,6 @@ object Router:
       .collectStatic(HomePage)(Home(RouterInstance))
       .collectStatic(KaptenAllocPage)(KaptenAlloc(RouterInstance))
       .collectStatic(SigridPage)(Sigrid(RouterInstance))
+      .collect[NotFoundPage] { case page =>
+        NotFound(RouterInstance, page.path)
+      }

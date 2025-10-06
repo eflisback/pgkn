@@ -17,7 +17,7 @@ object NavHeader:
       sectionTag(
         a(
           router.navigateTo(pgkn.HomePage),
-          h2("PGK'N")
+          h2("PEGEKÅN")
         )
       ),
       sectionTag(
