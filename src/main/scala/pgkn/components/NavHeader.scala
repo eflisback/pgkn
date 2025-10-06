@@ -7,8 +7,7 @@ import pgkn.services.{ThemeService, Theme}
 object NavHeader:
   private val navLinks = List(
     (pgkn.KaptenAllocPage, "Kapten Alloc"),
-    (pgkn.SigridPage, "Sigrid"),
-    (pgkn.SigridPage, "Beppe")
+    (pgkn.SigridPage, "Sigrid")
   )
 
   def apply(router: Router[pgkn.Page]): HtmlElement =
