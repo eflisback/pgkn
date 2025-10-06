@@ -15,6 +15,19 @@
     gap: 1.5rem;
 }
 
+.nav-header section>a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-header section>a>img {
+    height: 2.25rem;
+    width: 2.25rem;
+    border-radius: 4px;
+}
+
 .nav-header-links {
     display: flex;
     align-items: center;

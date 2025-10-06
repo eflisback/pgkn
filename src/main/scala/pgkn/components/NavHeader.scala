@@ -16,6 +16,7 @@ object NavHeader:
       sectionTag(
         a(
           router.navigateTo(pgkn.HomePage),
+          SvgIcon("/favicon.svg", preserveColors = true),
           h2("PEGEKÅN")
         )
       ),

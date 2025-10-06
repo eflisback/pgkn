@@ -1,0 +1,81 @@
+<svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" width="320" height="320" shape-rendering="crispEdges">
+  <!-- Sky (rows 0-1, top ~25%) -->
+  <rect x="0" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="1" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="2" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="3" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="4" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="5" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="6" y="0" width="1" height="1" fill="#8cbeff"/>
+  <rect x="7" y="0" width="1" height="1" fill="#8cbeff"/>
+  
+  <rect x="0" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="1" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="2" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="3" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="4" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="5" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="6" y="1" width="1" height="1" fill="#8cbeff"/>
+  <rect x="7" y="1" width="1" height="1" fill="#8cbeff"/>
+  
+  <!-- Grass layer (row 2) with tunnel entrances -->
+  <rect x="0" y="2" width="1" height="1" fill="#198223"/>
+  <rect x="1" y="2" width="1" height="1" fill="#cc9966"/>
+  <rect x="2" y="2" width="1" height="1" fill="#198223"/>
+  <rect x="3" y="2" width="1" height="1" fill="#198223"/>
+  <rect x="4" y="2" width="1" height="1" fill="#198223"/>
+  <rect x="5" y="2" width="1" height="1" fill="#198223"/>
+  <rect x="6" y="2" width="1" height="1" fill="#cc9966"/>
+  <rect x="7" y="2" width="1" height="1" fill="#198223"/>
+  
+  <!-- Dirt with tunnels (rows 3-7) -->
+  <!-- Row 3 -->
+  <rect x="0" y="3" width="1" height="1" fill="#996633"/>
+  <rect x="1" y="3" width="1" height="1" fill="#cc9966"/>
+  <rect x="2" y="3" width="1" height="1" fill="#996633"/>
+  <rect x="3" y="3" width="1" height="1" fill="#996633"/>
+  <rect x="4" y="3" width="1" height="1" fill="#996633"/>
+  <rect x="5" y="3" width="1" height="1" fill="#996633"/>
+  <rect x="6" y="3" width="1" height="1" fill="#cc9966"/>
+  <rect x="7" y="3" width="1" height="1" fill="#996633"/>
+  
+  <!-- Row 4 -->
+  <rect x="0" y="4" width="1" height="1" fill="#996633"/>
+  <rect x="1" y="4" width="1" height="1" fill="#cc9966"/>
+  <rect x="2" y="4" width="1" height="1" fill="#996633"/>
+  <rect x="3" y="4" width="1" height="1" fill="#996633"/>
+  <rect x="4" y="4" width="1" height="1" fill="#333300"/>
+  <rect x="5" y="4" width="1" height="1" fill="#cc9966"/>
+  <rect x="6" y="4" width="1" height="1" fill="#cc9966"/>
+  <rect x="7" y="4" width="1" height="1" fill="#996633"/>
+  
+  <!-- Row 5 -->
+  <rect x="0" y="5" width="1" height="1" fill="#996633"/>
+  <rect x="1" y="5" width="1" height="1" fill="#653300"/>
+  <rect x="2" y="5" width="1" height="1" fill="#996633"/>
+  <rect x="3" y="5" width="1" height="1" fill="#996633"/>
+  <rect x="4" y="5" width="1" height="1" fill="#996633"/>
+  <rect x="5" y="5" width="1" height="1" fill="#996633"/>
+  <rect x="6" y="5" width="1" height="1" fill="#996633"/>
+  <rect x="7" y="5" width="1" height="1" fill="#996633"/>
+  
+  <!-- Row 6 -->
+  <rect x="0" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="1" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="2" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="3" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="4" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="5" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="6" y="6" width="1" height="1" fill="#996633"/>
+  <rect x="7" y="6" width="1" height="1" fill="#996633"/>
+  
+  <!-- Row 7 -->
+  <rect x="0" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="1" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="2" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="3" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="4" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="5" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="6" y="7" width="1" height="1" fill="#996633"/>
+  <rect x="7" y="7" width="1" height="1" fill="#996633"/>
+</svg>
