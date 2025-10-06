@@ -30,3 +30,4 @@ target
 project/project
 project/.bloop
 .bsp
+.vercel
