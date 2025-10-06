@@ -33,5 +33,9 @@ lazy val pgkn = project
     libraryDependencies += "com.raquo" %%% "waypoint" % "9.0.0",
 
     // Depend on uPickle for serialization
-    libraryDependencies += "com.lihaoyi" %%% "upickle" % "4.0.2"
+    libraryDependencies += "com.lihaoyi" %%% "upickle" % "4.0.2",
+
+    // Depend on scala-java-time for date/time utilities in Scala.js
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0",
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.6.0"
   )

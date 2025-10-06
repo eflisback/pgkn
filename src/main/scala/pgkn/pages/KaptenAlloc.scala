@@ -4,8 +4,15 @@ import com.raquo.laminar.api.L.*
 import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 import pgkn.components.SvgIcon
+import pgkn.services.KaptenAllocDataService
+import pgkn.model.KaptenAllocEntry
+import pgkn.utils.DateUtils
+import pgkn.utils.FormatUtils.*
+import scala.scalajs.js
 
 object KaptenAlloc:
+  KaptenAllocDataService.fetchData()
+
   def apply(router: Router[pgkn.Page]): HtmlElement =
     mainTag(
       className := "kapten-alloc-page",
@@ -22,10 +29,14 @@ object KaptenAlloc:
           ),
           sectionTag(
             a(
+              href := "https://cloud.timeedit.net/lu/web/lth1/ri19566250000YQQ28Z0507007y9Y4763gQ0g5X6Y65ZQ176.html",
+              target := "_blank",
               span("TimeEdit"),
               SvgIcon("/icons/externalLink.svg")
             ),
             a(
+              href := "https://fileadmin.cs.lth.se/cs/Bilder/Salar/Datorsalar_E-huset.pdf",
+              target := "_blank",
               span("Karta"),
               SvgIcon("/icons/externalLink.svg")
             )
@@ -54,146 +65,26 @@ object KaptenAlloc:
               )
             ),
             tbody(
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.01"),
-                td("Elg"),
-                td("SAR")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.02"),
-                td("Hacke"),
-                td("SAJ")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.03"),
-                td("Panter"),
-                td("ALW")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.04"),
-                td("Ravel"),
-                td("JUG")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.09"),
-                td("Falk"),
-                td("ELÅ")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.10"),
-                td("Val"),
-                td("NAK")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.11"),
-                td("Varg"),
-                td("WIS")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.12"),
-                td("Alfa"),
-                td("MAU")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.13"),
-                td("Beta"),
-                td("MOJ")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("D1.14"),
-                td("Gamma"),
-                td("AXF")
-              ),
-              tr(
-                td("Resurstid"),
-                td("2025-09-03"),
-                td("v36"),
-                td("ons"),
-                td("15:15"),
-                td("XA1"),
-                td("Ambulans"),
-                td("MEW")
-              ),
-              tr(
-                td("DodLabb"),
-                td("2025-09-04"),
-                td("v36"),
-                td("tor"),
-                td("10:15"),
-                td("C1.01"),
-                td("Alfa"),
-                td("JOE")
-              ),
-              tr(
-                td("DodLabb"),
-                td("2025-09-04"),
-                td("v36"),
-                td("tor"),
-                td("10:15"),
-                td("C1.02"),
-                td("Beta"),
-                td("APR")
-              ),
-              tr(
-                td("DodLabb"),
-                td("2025-09-04"),
-                td("v36"),
-                td("tor"),
-                td("10:15"),
-                td("C1.03"),
-                td("Gamma"),
-                td("JON")
-              )
+              children <-- KaptenAllocDataService.entries.map(_.map(entry =>
+                val date = new js.Date(entry.time.toDouble)
+                val dateStr =
+                  s"${(date.getMonth() + 1).toInt.pad()}-${date.getDate().toInt.pad()}"
+                val timeStr =
+                  s"${date.getHours().toInt.pad()}:${date.getMinutes().toInt.pad()}"
+                val weekNum = s"v${DateUtils.getWeekNumber(entry.time)}"
+                val dayStr = DateUtils.getSwedishDayName(entry.time)
+
+                tr(
+                  td(entry.entryType),
+                  td(dateStr),
+                  td(weekNum),
+                  td(dayStr),
+                  td(timeStr),
+                  td(entry.group),
+                  td(entry.room),
+                  td(entry.supervisor)
+                )
+              ))
             )
           )
         )

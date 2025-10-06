@@ -10,7 +10,9 @@ object Home:
     ("Sekvens, Alternativ, Repetition, Abstraktion.", "Björn Regnell"),
     ("Koda, koda, koda!", "Björn Regnell"),
     ("WUUUUAAAAH!", "Mutanten"),
-    ("Det är jag som är döden.", "Skräpsamlaren")
+    ("Det är jag som är döden.", "Skräpsamlaren"),
+    ("🎵 🎶 🎶", "Stränginterpolatorn"),
+    ("PAAANG!", "Kompilatorn")
   )
 
   def apply(router: Router[pgkn.Page]): HtmlElement =
