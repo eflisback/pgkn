@@ -5,50 +5,26 @@ import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 import pgkn.components.SvgIcon
 import pgkn.services.KaptenAllocDataService
-import pgkn.model.KaptenAllocEntry
-import pgkn.utils.DateUtils
-import pgkn.utils.FormatUtils.*
 import scala.scalajs.js
 
 object KaptenAlloc:
   KaptenAllocDataService.fetchData()
 
-  private case class FormattedEntry(
-      entryType: String,
-      dateStr: String,
-      weekNum: String,
-      dayStr: String,
-      timeStr: String,
-      group: String,
-      room: String,
-      supervisor: String
-  )
-
-  private def formatEntry(entry: KaptenAllocEntry): FormattedEntry =
-    val date = new js.Date(entry.time.toDouble)
-    val dateStr =
-      s"${(date.getMonth() + 1).toInt.pad()}-${date.getDate().toInt.pad()}"
-    val timeStr =
-      s"${date.getHours().toInt.pad()}:${date.getMinutes().toInt.pad()}"
-    val weekNum = s"v${DateUtils.getWeekNumber(entry.time)}"
-    val dayStr = DateUtils.getSwedishDayName(entry.time)
-
-    FormattedEntry(
-      entry.entryType,
-      dateStr,
-      weekNum,
-      dayStr,
-      timeStr,
-      entry.group,
-      entry.room,
-      entry.supervisor
-    )
-
   def apply(router: Router[pgkn.Page]): HtmlElement =
     val searchQuery = Var("")
+    val showPassed = Var(false)
 
-    val formattedEntries =
-      KaptenAllocDataService.entries.map(_.map(formatEntry))
+    val timeFilteredEntries =
+      KaptenAllocDataService.entries
+        .combineWith(showPassed.signal)
+        .map((entries, showPassedSessions) =>
+          if showPassedSessions then entries
+          else
+            val now = new js.Date().getTime()
+            entries.filter(_.time.toDouble >= now)
+        )
+
+    val formattedEntries = timeFilteredEntries.map(_.map(_.toFormatted))
 
     val filteredEntries =
       formattedEntries
@@ -105,6 +81,17 @@ object KaptenAlloc:
           )
         ),
         div(
+          className := "kapten-alloc-controls",
+          label(
+            input(
+              typ := "checkbox",
+              checked <-- showPassed.signal,
+              onInput.mapToChecked --> showPassed
+            ),
+            span("Inkludera passerade tider")
+          )
+        ),
+        div(
           className := "kapten-alloc-table-container",
           table(
             className := "kapten-alloc-table",
@@ -138,9 +125,5 @@ object KaptenAlloc:
             )
           )
         )
-      ),
-      div(
-        className := "kapten-alloc-controls",
-        p("Controls will go here")
       )
     )
