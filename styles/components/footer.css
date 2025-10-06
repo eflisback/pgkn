@@ -1,4 +1,4 @@
-.app-footer {
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -6,15 +6,16 @@
   display: flex;
   justify-content: center;
   padding: 1rem 2rem;
+  z-index: 1000;
 }
 
-.app-footer a {
+.footer a {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
 }
 
-.app-footer a:hover span {
+.footer a:hover span {
   color: var(--color-text);
 }
