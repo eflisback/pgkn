@@ -2,7 +2,7 @@ package pgkn.pages
 
 import com.raquo.laminar.api.L.*
 import com.raquo.waypoint.*
-import pgkn.components.NavHeader
+import pgkn.components.{NavHeader, Footer}
 import scala.util.Random
 
 object Home:
@@ -25,5 +25,6 @@ object Home:
         className := "home-page-content",
         h1(s"\"${quote._1}\""),
         span(s"- ${quote._2}")
-      )
+      ),
+      Footer()
     )

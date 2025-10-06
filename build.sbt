@@ -1,9 +1,25 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
+import scala.sys.process._
+import scala.io.Source
+
+lazy val packageJsonVersion = {
+  val json = Source.fromFile("package.json").mkString
+  val versionRegex = """"version"\s*:\s*"([^"]+)"""".r
+  versionRegex.findFirstMatchIn(json).map(_.group(1)).getOrElse("0.0.0")
+}
 
 lazy val pgkn = project
   .in(file("."))
-  .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
+  .enablePlugins(
+    ScalaJSPlugin,
+    BuildInfoPlugin
+  ) // Enable the Scala.js plugin in this project
   .settings(
+    // BuildInfo configuration
+    buildInfoKeys := Seq[BuildInfoKey](
+      "version" -> packageJsonVersion
+    ),
+    buildInfoPackage := "pgkn",
     scalaVersion := "3.7.3",
 
     // Tell Scala.js that this is an application with a main method
