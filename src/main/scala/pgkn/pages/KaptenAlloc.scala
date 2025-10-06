@@ -5,10 +5,50 @@ import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 import pgkn.components.SvgIcon
 import pgkn.services.KaptenAllocDataService
+import pgkn.services.DownloadService
+import pgkn.utils.ics.*
+import org.scalajs.dom
 import scala.scalajs.js
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 object KaptenAlloc:
   KaptenAllocDataService.fetchData()
+
+  private def buildCalendar(
+      entries: Seq[pgkn.model.KaptenAllocEntry]
+  ): Calendar =
+    val calendar = Calendar()
+
+    entries.foreach { entry =>
+      val instant = Instant.ofEpochMilli(entry.time.toLong)
+      val localDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
+
+      val date = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+      val time = localDateTime.format(DateTimeFormatter.ofPattern("HHmm")).toInt
+
+      val event = Event()
+      event.addProperty(
+        (Property.time(date, time) ++
+          Seq(
+            Property.uid(),
+            Property.summary(
+              "EDAA50",
+              entry.entryType,
+              entry.room
+            ), // Course hardcoded for now
+            Property.description("EDAA50", entry.group, entry.room),
+            Property.location(entry.room),
+            Property.tzid()
+          ) ++
+          Property.createdTimes())*
+      )
+      calendar.addEvent(event)
+    }
+
+    calendar
 
   def apply(router: Router[pgkn.Page]): HtmlElement =
     val searchQuery = Var("")
@@ -24,10 +64,8 @@ object KaptenAlloc:
             entries.filter(_.time.toDouble >= now)
         )
 
-    val formattedEntries = timeFilteredEntries.map(_.map(_.toFormatted))
-
-    val filteredEntries =
-      formattedEntries
+    val searchFilteredEntries =
+      timeFilteredEntries
         .combineWith(searchQuery.signal)
         .map((entries, query) =>
           if query.trim.isEmpty then entries
@@ -35,15 +73,15 @@ object KaptenAlloc:
             val lowerQuery = query.toLowerCase
             entries.filter(entry =>
               entry.entryType.toLowerCase.contains(lowerQuery) ||
-                entry.dateStr.contains(lowerQuery) ||
-                entry.weekNum.toLowerCase.contains(lowerQuery) ||
-                entry.dayStr.toLowerCase.contains(lowerQuery) ||
-                entry.timeStr.contains(lowerQuery) ||
                 entry.group.toLowerCase.contains(lowerQuery) ||
                 entry.room.toLowerCase.contains(lowerQuery) ||
                 entry.supervisor.toLowerCase.contains(lowerQuery)
             )
         )
+
+    val formattedEntries = searchFilteredEntries.map(_.map(_.toFormatted))
+
+    val filteredEntries = formattedEntries
 
     mainTag(
       className := "kapten-alloc-page",
@@ -76,7 +114,16 @@ object KaptenAlloc:
           sectionTag(
             button(
               span("Ladda ner"),
-              SvgIcon("/icons/download.svg")
+              SvgIcon("/icons/download.svg"),
+              onClick
+                .compose(_.withCurrentValueOf(searchFilteredEntries))
+                --> ((_, entries) =>
+                  if entries.isEmpty then
+                    dom.window.alert("Finns inga tider att skapa en ICS fil av")
+                  else
+                    val calendar = buildCalendar(entries)
+                    DownloadService.downloadIcs(calendar.toICS())
+                )
             )
           )
         ),
