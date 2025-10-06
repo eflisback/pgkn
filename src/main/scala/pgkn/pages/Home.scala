@@ -12,11 +12,11 @@ object Home:
     ("WUUUUAAAAH!", "Mutanten"),
     ("Det är jag som är döden.", "Skräpsamlaren"),
     ("🎵 🎶 🎶", "Stränginterpolatorn"),
-    ("PAAANG!", "Kompilatorn"),
+    ("PANG!", "Kompilatorn"),
     ("TACK kompilatorn!", "Björn Regnell"),
     ("KUT FSSR", "Björn Regnell"),
     ("val gurka: Int = 42", "Björns REPL"),
-    ("Jag är anonyyyym... jag har inget naaamn...", "Anonym funktion")
+    ("Jag är anonyyyym... jag har inget naaamn...", "() => {}")
   )
 
   def apply(router: Router[pgkn.Page]): HtmlElement =
