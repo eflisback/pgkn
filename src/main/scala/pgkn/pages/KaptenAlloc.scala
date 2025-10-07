@@ -5,6 +5,7 @@ import com.raquo.laminar.lifecycle.MountContext
 import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 import pgkn.components.SvgIcon
+import pgkn.components.Toast
 import pgkn.services.KaptenAllocDataService
 import pgkn.services.DownloadService
 import pgkn.utils.ics.*
@@ -62,13 +63,16 @@ object KaptenAlloc:
         })
     )
 
-  private def copyEntryLink(entryId: String): Unit =
+  private def copyEntryLink(entryId: String, showToast: Var[Boolean]): Unit =
     val url = s"${dom.window.location.origin}/kapten-alloc?selected=$entryId"
     dom.window.navigator.clipboard.writeText(url)
+    showToast.set(true)
+    js.timers.setTimeout(3000)(showToast.set(false))
 
   private def renderTableRow(
       entry: pgkn.model.FormattedKaptenAllocEntry,
-      selectedId: Option[String]
+      selectedId: Option[String],
+      showToast: Var[Boolean]
   ): HtmlElement =
     tr(
       dataAttr("entry-id") := entry.id,
@@ -77,7 +81,7 @@ object KaptenAlloc:
         .map(_ => "selected")
         .getOrElse(""),
       onMountCallback(ctx => scrollToEntry(ctx, entry.id, selectedId)),
-      onClick --> (_ => copyEntryLink(entry.id)),
+      onClick --> (_ => copyEntryLink(entry.id, showToast)),
       td(entry.entryType),
       td(entry.dateStr),
       td(entry.weekNum),
@@ -94,6 +98,7 @@ object KaptenAlloc:
   ): HtmlElement =
     val searchQuery = Var("")
     val showPassed = Var(false)
+    val showToast = Var(false)
 
     val timeFilteredEntries =
       KaptenAllocDataService.entries
@@ -197,10 +202,11 @@ object KaptenAlloc:
             ),
             tbody(
               children <-- filteredEntries.map(
-                _.map(entry => renderTableRow(entry, selectedId))
+                _.map(entry => renderTableRow(entry, selectedId, showToast))
               )
             )
           )
-        )
+        ),
+        Toast("Passlänk kopierad till urklipp", showToast.signal)
       )
     )
