@@ -115,8 +115,11 @@
 }
 
 .kapten-alloc-table tbody tr.selected {
-    color: var(--color-text);
     background-color: var(--color-bg-highlight);
+}
+
+.kapten-alloc-table tbody tr.selected td {
+    color: var(--color-text);
 }
 
 .kapten-alloc-table th:first-child,
