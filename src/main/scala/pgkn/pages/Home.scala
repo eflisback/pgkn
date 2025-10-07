@@ -26,7 +26,7 @@ object Home:
       NavHeader(router),
       div(
         className := "home-page-content",
-        h1(s"\"${quote._1}\""),
+        h1(quote._1),
         span(s"- ${quote._2}")
       ),
       Footer()
