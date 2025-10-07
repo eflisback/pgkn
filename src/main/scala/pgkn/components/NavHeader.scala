@@ -28,8 +28,12 @@ object NavHeader:
               router.navigateTo(page),
               className.toggle(
                 "nav-header-link-selected"
-              ) <-- router.currentPageSignal.map(
-                _ == page
+              ) <-- router.currentPageSignal.map(currentPage =>
+                currentPage match
+                  case pgkn.KaptenAllocPage | _: pgkn.KaptenAllocSelectedPage
+                      if page == pgkn.KaptenAllocPage =>
+                    true
+                  case _ => currentPage == page
               ),
               label
             )

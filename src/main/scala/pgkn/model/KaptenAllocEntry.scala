@@ -2,6 +2,7 @@ package pgkn.model
 
 import pgkn.utils.DateUtils
 import pgkn.utils.FormatUtils.*
+import pgkn.utils.HashUtils
 import scala.scalajs.js
 
 case class KaptenAllocEntry(
@@ -11,6 +12,10 @@ case class KaptenAllocEntry(
     room: String,
     supervisor: String
 ):
+  /** Generates a unique, stable ID for this entry based on its properties */
+  lazy val id: String =
+    HashUtils.shortHash(s"$time-$group-$room-$supervisor-$entryType")
+
   def toFormatted: FormattedKaptenAllocEntry =
     val date = new js.Date(time.toDouble)
     val dateStr =
@@ -28,7 +33,8 @@ case class KaptenAllocEntry(
       timeStr,
       group,
       room,
-      supervisor
+      supervisor,
+      id
     )
 
 case class FormattedKaptenAllocEntry(
@@ -39,5 +45,6 @@ case class FormattedKaptenAllocEntry(
     timeStr: String,
     group: String,
     room: String,
-    supervisor: String
+    supervisor: String,
+    id: String
 )

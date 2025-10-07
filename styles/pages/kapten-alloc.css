@@ -102,12 +102,21 @@
 }
 
 
+.kapten-alloc-table tbody tr {
+    cursor: pointer;
+}
+
 .kapten-alloc-table tbody tr:nth-child(odd) {
     background-color: var(--color-bg);
 }
 
 .kapten-alloc-table tbody tr:nth-child(even) {
     background-color: var(--color-bg-secondary);
+}
+
+.kapten-alloc-table tbody tr.selected {
+    color: var(--color-text);
+    background-color: var(--color-bg-highlight);
 }
 
 .kapten-alloc-table th:first-child,

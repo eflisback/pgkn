@@ -1,6 +1,7 @@
 package pgkn.pages
 
 import com.raquo.laminar.api.L.*
+import com.raquo.laminar.lifecycle.MountContext
 import com.raquo.waypoint.*
 import pgkn.components.NavHeader
 import pgkn.components.SvgIcon
@@ -22,7 +23,7 @@ object KaptenAlloc:
   ): Calendar =
     val calendar = Calendar()
 
-    entries.foreach { entry =>
+    entries.foreach(entry =>
       val instant = Instant.ofEpochMilli(entry.time.toLong)
       val localDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
 
@@ -34,11 +35,7 @@ object KaptenAlloc:
         (Property.time(date, time) ++
           Seq(
             Property.uid(),
-            Property.summary(
-              "EDAA50",
-              entry.entryType,
-              entry.room
-            ), // Course hardcoded for now
+            Property.summary("EDAA50", entry.entryType, entry.room),
             Property.description("EDAA50", entry.group, entry.room),
             Property.location(entry.room),
             Property.tzid()
@@ -46,11 +43,55 @@ object KaptenAlloc:
           Property.createdTimes())*
       )
       calendar.addEvent(event)
-    }
+    )
 
     calendar
 
-  def apply(router: Router[pgkn.Page]): HtmlElement =
+  private def scrollToEntry(
+      ctx: MountContext[?],
+      entryId: String,
+      selectedId: Option[String]
+  ): Unit =
+    selectedId.foreach(id =>
+      if id == entryId then
+        js.timers.setTimeout(100)({
+          val options = js.Dynamic
+            .literal(behavior = "smooth", block = "center", inline = "nearest")
+            .asInstanceOf[js.Any]
+          ctx.thisNode.ref.asInstanceOf[js.Dynamic].scrollIntoView(options)
+        })
+    )
+
+  private def copyEntryLink(entryId: String): Unit =
+    val url = s"${dom.window.location.origin}/kapten-alloc?selected=$entryId"
+    dom.window.navigator.clipboard.writeText(url)
+
+  private def renderTableRow(
+      entry: pgkn.model.FormattedKaptenAllocEntry,
+      selectedId: Option[String]
+  ): HtmlElement =
+    tr(
+      dataAttr("entry-id") := entry.id,
+      className := selectedId
+        .filter(_ == entry.id)
+        .map(_ => "selected")
+        .getOrElse(""),
+      onMountCallback(ctx => scrollToEntry(ctx, entry.id, selectedId)),
+      onClick --> (_ => copyEntryLink(entry.id)),
+      td(entry.entryType),
+      td(entry.dateStr),
+      td(entry.weekNum),
+      td(entry.dayStr),
+      td(entry.timeStr),
+      td(entry.group),
+      td(entry.room),
+      td(entry.supervisor)
+    )
+
+  def apply(
+      router: Router[pgkn.Page],
+      selectedId: Option[String]
+  ): HtmlElement =
     val searchQuery = Var("")
     val showPassed = Var(false)
 
@@ -156,18 +197,7 @@ object KaptenAlloc:
             ),
             tbody(
               children <-- filteredEntries.map(
-                _.map(entry =>
-                  tr(
-                    td(entry.entryType),
-                    td(entry.dateStr),
-                    td(entry.weekNum),
-                    td(entry.dayStr),
-                    td(entry.timeStr),
-                    td(entry.group),
-                    td(entry.room),
-                    td(entry.supervisor)
-                  )
-                )
+                _.map(entry => renderTableRow(entry, selectedId))
               )
             )
           )
