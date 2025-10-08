@@ -110,24 +110,50 @@ object KaptenAlloc:
             entries.filter(_.time.toDouble >= now)
         )
 
-    val searchFilteredEntries =
+    val formattedEntries = timeFilteredEntries.map(_.map(_.toFormatted))
+
+    val filteredFormattedEntries =
+      formattedEntries
+        .combineWith(searchQuery.signal)
+        .map((entries, query) =>
+          if query.trim.isEmpty then entries
+          else
+            val terms = query.toLowerCase.split("\\s+").filter(_.nonEmpty)
+            entries.filter(entry =>
+              terms.forall(term =>
+                entry.entryType.toLowerCase.contains(term) ||
+                  entry.dateStr.toLowerCase.contains(term) ||
+                  entry.weekNum.toLowerCase.contains(term) ||
+                  entry.dayStr.toLowerCase.contains(term) ||
+                  entry.timeStr.toLowerCase.contains(term) ||
+                  entry.group.toLowerCase.contains(term) ||
+                  entry.room.toLowerCase.contains(term) ||
+                  entry.supervisor.toLowerCase.contains(term)
+              )
+            )
+        )
+
+    val filteredUnformattedEntries =
       timeFilteredEntries
         .combineWith(searchQuery.signal)
         .map((entries, query) =>
           if query.trim.isEmpty then entries
           else
-            val lowerQuery = query.toLowerCase
+            val terms = query.toLowerCase.split("\\s+").filter(_.nonEmpty)
             entries.filter(entry =>
-              entry.entryType.toLowerCase.contains(lowerQuery) ||
-                entry.group.toLowerCase.contains(lowerQuery) ||
-                entry.room.toLowerCase.contains(lowerQuery) ||
-                entry.supervisor.toLowerCase.contains(lowerQuery)
+              val formatted = entry.toFormatted
+              terms.forall(term =>
+                entry.entryType.toLowerCase.contains(term) ||
+                  formatted.dateStr.toLowerCase.contains(term) ||
+                  formatted.weekNum.toLowerCase.contains(term) ||
+                  formatted.dayStr.toLowerCase.contains(term) ||
+                  formatted.timeStr.toLowerCase.contains(term) ||
+                  entry.group.toLowerCase.contains(term) ||
+                  entry.room.toLowerCase.contains(term) ||
+                  entry.supervisor.toLowerCase.contains(term)
+              )
             )
         )
-
-    val formattedEntries = searchFilteredEntries.map(_.map(_.toFormatted))
-
-    val filteredEntries = formattedEntries
 
     mainTag(
       className := "kapten-alloc-page",
@@ -162,7 +188,7 @@ object KaptenAlloc:
               span("Ladda ner"),
               SvgIcon("/icons/download.svg"),
               onClick
-                .compose(_.withCurrentValueOf(searchFilteredEntries))
+                .compose(_.withCurrentValueOf(filteredUnformattedEntries))
                 --> ((_, entries) =>
                   if entries.isEmpty then
                     dom.window.alert("Finns inga tider att skapa en ICS fil av")
@@ -201,7 +227,7 @@ object KaptenAlloc:
               )
             ),
             tbody(
-              children <-- filteredEntries.map(
+              children <-- filteredFormattedEntries.map(
                 _.map(entry => renderTableRow(entry, selectedId, showToast))
               )
             )
