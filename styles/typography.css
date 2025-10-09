@@ -46,4 +46,5 @@ h3 {
 a,
 button {
     cursor: pointer;
+    user-select: none;
 }

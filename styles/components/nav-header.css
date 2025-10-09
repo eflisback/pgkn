@@ -6,6 +6,7 @@
     background-color: var(--color-bg-secondary);
     border-bottom: 1px solid var(--color-border);
     gap: 1.5rem;
+    user-select: none;
 }
 
 .nav-header section {
