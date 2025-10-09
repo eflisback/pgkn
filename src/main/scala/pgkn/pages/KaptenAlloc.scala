@@ -238,7 +238,7 @@ object KaptenAlloc:
               checked <-- caseSensitive.signal,
               onInput.mapToChecked --> caseSensitive
             ),
-            span("Versalsensitiv")
+            span("Versalkänslig")
           )
         ),
         div(
