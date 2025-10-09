@@ -98,6 +98,7 @@ object KaptenAlloc:
   ): HtmlElement =
     val searchQuery = Var("")
     val showPassed = Var(selectedId.isDefined)
+    val caseSensitive = Var(selectedId.isDefined)
     val showToast = Var(false)
 
     val timeFilteredEntries =
@@ -115,13 +116,27 @@ object KaptenAlloc:
     val filteredFormattedEntries =
       formattedEntries
         .combineWith(searchQuery.signal)
-        .map((entries, query) =>
+        .combineWith(caseSensitive.signal)
+        .map((entries, query, caseSense) =>
           if query.trim.isEmpty then entries
           else
-            val terms = query.toLowerCase.split("\\s+").filter(_.nonEmpty)
+            val terms = if caseSense then 
+              query.split("\\s+").filter(_.nonEmpty) 
+            else 
+              query.toLowerCase.split("\\s+").filter(_.nonEmpty)
             entries.filter(entry =>
               terms.forall(term =>
-                entry.entryType.toLowerCase.contains(term) ||
+                if caseSense then
+                  entry.entryType.contains(term) ||
+                  entry.dateStr.contains(term) ||
+                  entry.weekNum.contains(term) ||
+                  entry.dayStr.contains(term) ||
+                  entry.timeStr.contains(term) ||
+                  entry.group.contains(term) ||
+                  entry.room.contains(term) ||
+                  entry.supervisor.contains(term)
+                else
+                  entry.entryType.toLowerCase.contains(term) ||
                   entry.dateStr.toLowerCase.contains(term) ||
                   entry.weekNum.toLowerCase.contains(term) ||
                   entry.dayStr.toLowerCase.contains(term) ||
@@ -216,6 +231,14 @@ object KaptenAlloc:
               onInput.mapToChecked --> showPassed
             ),
             span("Inkludera passerade tider")
+          ),
+          label(
+            input(
+              typ := "checkbox",
+              checked <-- caseSensitive.signal,
+              onInput.mapToChecked --> caseSensitive
+            ),
+            span("Versalsensitiv")
           )
         ),
         div(
