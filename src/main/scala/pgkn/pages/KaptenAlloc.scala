@@ -97,7 +97,7 @@ object KaptenAlloc:
       selectedId: Option[String]
   ): HtmlElement =
     val searchQuery = Var("")
-    val showPassed = Var(false)
+    val showPassed = Var(selectedId.isDefined)
     val showToast = Var(false)
 
     val timeFilteredEntries =
