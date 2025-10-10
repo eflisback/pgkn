@@ -9,6 +9,9 @@ object Sigrid:
     mainTag(
       NavHeader(router),
       div(
-        p("Sigrid: Coming soon")
+        styleAttr := "display: flex; justify-self: center;",
+        img(src:="/gifs/dropping_soon.gif",
+            width:= "30rem"
+        )
       )
     )
