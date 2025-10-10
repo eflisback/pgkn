@@ -170,8 +170,10 @@ object KaptenAlloc:
                 placeholder := "Sök...",
                 onInput.mapToValue --> searchQuery
               ),
-              p(
-                child.text <-- filteredEntries.map(entries => entries.length.toString)
+              span(
+                child.text <-- filteredFormattedEntries.map(entries =>
+                  entries.length.toString
+                )
               )
             )
           ),
