@@ -163,13 +163,16 @@ object KaptenAlloc:
         div(
           className := "kapten-alloc-subheader",
           sectionTag(
-            input(
-              typ := "text",
-              placeholder := "Sök...",
-              onInput.mapToValue --> searchQuery
-            ),
-            p(
-              child.text <-- filteredEntries.map(entries => entries.length.toString)
+            div(
+              className := "kapten-alloc-search",
+              input(
+                typ := "text",
+                placeholder := "Sök...",
+                onInput.mapToValue --> searchQuery
+              ),
+              p(
+                child.text <-- filteredEntries.map(entries => entries.length.toString)
+              )
             )
           ),
           sectionTag(
