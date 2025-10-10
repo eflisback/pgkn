@@ -69,6 +69,10 @@
     color: var(--color-text);
 }
 
+.kapten-alloc-subheader button:hover {
+    opacity: var(--hover-opacity);
+}
+
 .kapten-alloc-search span {
     margin-left: -2.2rem;
     font-size: 0.8rem;
@@ -107,7 +111,9 @@
 
 .kapten-alloc-table tbody tr {
     cursor: pointer;
+    transition: none;
 }
+
 
 .kapten-alloc-table tbody tr:nth-child(odd) {
     background-color: var(--color-bg);
@@ -117,8 +123,16 @@
     background-color: var(--color-bg-secondary);
 }
 
+.kapten-alloc-table tbody tr:hover {
+    background-color: var(--color-bg-hover);
+}
+
 .kapten-alloc-table tbody tr.selected {
     background-color: var(--color-bg-highlight);
+}
+
+.kapten-alloc-table tbody tr.selected:hover {
+    background-color: var(--color-bg-highlight-hover);
 }
 
 .kapten-alloc-table tbody tr.selected td {

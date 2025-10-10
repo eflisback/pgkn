@@ -2,11 +2,16 @@
   --color-bg: #1c1c1c;
   --color-bg-secondary: #232323;
   --color-bg-panel: #161616;
-  --color-bg-highlight: #451179;
+  --color-bg-hover: #7b7b7b59;
+  --color-bg-highlight: #451179c1;
+  --color-bg-highlight-hover: #652aa0ac;
+
 
   --color-text: #ffffff;
   --color-text-secondary: #a0a0a0;
   --color-text-accent: #ffffff;
 
   --color-border: #333333;
+
+  --hover-opacity: 0.75;
 }

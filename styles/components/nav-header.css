@@ -37,6 +37,10 @@
     gap: 1.5rem;
 }
 
+.nav-header-links a:hover, .nav-header-theme-switch button:hover{
+    opacity: var(--hover-opacity);
+}
+
 .nav-header-link-selected {
     color: var(--color-text);
 }
