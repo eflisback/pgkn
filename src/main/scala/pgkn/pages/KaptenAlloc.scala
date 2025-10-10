@@ -98,6 +98,7 @@ object KaptenAlloc:
   ): HtmlElement =
     val searchQuery = Var("")
     val showPassed = Var(selectedId.isDefined)
+    val showTodayOnly = Var(false)
     val showToast = Var(false)
 
     val timeFilteredEntries =
@@ -109,6 +110,24 @@ object KaptenAlloc:
             val now = new js.Date().getTime()
             entries.filter(_.time.toDouble >= now)
         )
+        .combineWith(showTodayOnly.signal)
+        .map((entries, showTodayOnly) =>
+          if !showTodayOnly then entries
+          else
+            val startOfToday = 
+              val d = new js.Date();
+              d.setHours(0,0,0,0);
+              d.getTime();
+            val endOfToday = 
+              val d = new js.Date();
+              d.setHours(23,59,59,59);
+              d.getTime();
+            entries.filter(entry =>
+              entry.time.toDouble >= startOfToday &&
+              entry.time.toDouble <= endOfToday
+            )
+        )
+        
 
     val formattedEntries = timeFilteredEntries.map(_.map(_.toFormatted))
 
@@ -216,6 +235,14 @@ object KaptenAlloc:
               onInput.mapToChecked --> showPassed
             ),
             span("Inkludera passerade tider")
+          ),
+          label(
+            input(
+              typ := "checkbox",
+              checked <-- showTodayOnly.signal,
+              onInput.mapToChecked --> showTodayOnly
+            ),
+            span("Idag?")
           )
         ),
         div(
