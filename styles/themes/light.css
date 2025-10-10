@@ -2,11 +2,15 @@
   --color-bg: #ebebeb;
   --color-bg-secondary: #ffffff;
   --color-bg-panel: #dedede;
+  --color-bg-hover: #bdbdbd7e;
   --color-bg-highlight: #ff9ed4;
+  --color-bg-highlight-hover: #fa6cbaca;
 
   --color-text: #000000;
   --color-text-secondary: #555555;
   --color-text-accent: #ff386d;
 
   --color-border: #cdcdcd;
+
+  --hover-opacity: 0.55;
 }
