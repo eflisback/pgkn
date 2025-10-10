@@ -69,6 +69,11 @@
     color: var(--color-text);
 }
 
+.kapten-alloc-search p{
+    margin-left: -2.2rem;
+    font-size: 0.8rem;
+}
+
 .kapten-alloc-table-container {
     overflow-y: auto;
     border: 1px solid var(--color-border);
