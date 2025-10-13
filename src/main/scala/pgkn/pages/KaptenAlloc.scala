@@ -99,7 +99,7 @@ object KaptenAlloc:
     val searchQuery = Var("")
     val showPassed = Var(selectedId.isDefined)
     val showTodayOnly = Var(false)
-    val caseSensitive = Var(selectedId.isDefined)
+    val caseSensitive = Var(false)
     val showToast = Var(false)
 
     val timeFilteredEntries =
@@ -136,16 +136,16 @@ object KaptenAlloc:
       formattedEntries
         .combineWith(searchQuery.signal)
         .combineWith(caseSensitive.signal)
-        .map((entries, query, caseSense) =>
+        .map((entries, query, isCaseSensitive) =>
           if query.trim.isEmpty then entries
           else
-            val terms = if caseSense then 
+            val terms = if isCaseSensitive then 
               query.split("\\s+").filter(_.nonEmpty) 
             else 
               query.toLowerCase.split("\\s+").filter(_.nonEmpty)
             entries.filter(entry =>
               terms.forall(term =>
-                if caseSense then
+                if isCaseSensitive then
                   entry.entryType.contains(term) ||
                   entry.dateStr.contains(term) ||
                   entry.weekNum.contains(term) ||
