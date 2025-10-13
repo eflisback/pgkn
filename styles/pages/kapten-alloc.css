@@ -109,6 +109,11 @@
     cursor: pointer;
 }
 
+.kapten-alloc-table tbody tr:nth-child(n + 1) span:hover {
+    text-decoration: underline;
+    color: var(--color-text);
+}
+
 .kapten-alloc-table tbody tr:nth-child(odd) {
     background-color: var(--color-bg);
 }

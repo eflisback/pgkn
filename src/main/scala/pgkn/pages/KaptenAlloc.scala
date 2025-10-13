@@ -72,8 +72,18 @@ object KaptenAlloc:
   private def renderTableRow(
       entry: pgkn.model.FormattedKaptenAllocEntry,
       selectedId: Option[String],
-      showToast: Var[Boolean]
+      showToast: Var[Boolean],
+      searchQuery: Var[String]
   ): HtmlElement =
+
+    def tdFilter(data: String): HtmlElement = {
+      td(
+        span(data, 
+        onClick.mapTo(data) --> searchQuery
+        )
+      )
+    }
+  
     tr(
       dataAttr("entry-id") := entry.id,
       className := selectedId
@@ -81,15 +91,15 @@ object KaptenAlloc:
         .map(_ => "selected")
         .getOrElse(""),
       onMountCallback(ctx => scrollToEntry(ctx, entry.id, selectedId)),
-      onClick --> (_ => copyEntryLink(entry.id, showToast)),
-      td(entry.entryType),
-      td(entry.dateStr),
-      td(entry.weekNum),
-      td(entry.dayStr),
-      td(entry.timeStr),
-      td(entry.group),
-      td(entry.room),
-      td(entry.supervisor)
+      //onClick --> (_ => copyEntryLink(entry.id, showToast)),
+      tdFilter(entry.entryType),
+      tdFilter(entry.dateStr),
+      tdFilter(entry.weekNum),
+      tdFilter(entry.dayStr),
+      tdFilter(entry.timeStr),
+      tdFilter(entry.group), 
+      tdFilter(entry.room),
+      tdFilter(entry.supervisor)
     )
 
   def apply(
@@ -259,7 +269,7 @@ object KaptenAlloc:
             ),
             tbody(
               children <-- filteredFormattedEntries.map(
-                _.map(entry => renderTableRow(entry, selectedId, showToast))
+                _.map(entry => renderTableRow(entry, selectedId, showToast, searchQuery))
               )
             )
           )
