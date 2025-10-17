@@ -104,13 +104,6 @@ object KaptenAlloc:
 
     val timeFilteredEntries =
       KaptenAllocDataService.entries
-        .combineWith(showPassed.signal)
-        .map((entries, showPassedSessions) =>
-          if showPassedSessions then entries
-          else
-            val now = new js.Date().getTime()
-            entries.filter(_.time.toDouble >= now)
-        )
         .combineWith(showTodayOnly.signal)
         .map((entries, showTodayOnly) =>
           if !showTodayOnly then entries
@@ -243,14 +236,6 @@ object KaptenAlloc:
         ),
         div(
           className := "kapten-alloc-controls",
-          label(
-            input(
-              typ := "checkbox",
-              checked <-- showPassed.signal,
-              onInput.mapToChecked --> showPassed
-            ),
-            span("Inkludera passerade tider")
-          ),
           label(
             input(
               typ := "checkbox",
